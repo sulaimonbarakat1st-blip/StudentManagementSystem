@@ -1,13 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using StudentManagementSystem.Data;
-using ApplicationDbContext = StudentManagementSystem.Data.ApplicationDbContext;
 
 namespace StudentManagementSystem
 {
-    public class 
-        
-        
-        Program
+    public class Program
     {
         public static void Main(string[] args)
         {
@@ -15,19 +11,39 @@ namespace StudentManagementSystem
             builder.Services.AddControllersWithViews();
             builder.Services.AddHttpContextAccessor();
             builder.Services.AddSession();
-            builder.Services.AddDbContext<StudentManagementSystem.Data.ApplicationDbContext>(options =>
-                options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+            // FIX: Convert Neon postgresql:// URL to Npgsql format
+            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+            if (!string.IsNullOrEmpty(connectionString) && connectionString.StartsWith("postgres"))
+            {
+                var uri = new Uri(connectionString);
+                var userInfo = uri.UserInfo.Split(':', 2);
+                var username = userInfo[0];
+                var password = userInfo.Length > 1 ? userInfo[1] : "";
+                var database = uri.AbsolutePath.Trim('/').Split('?')[0];
+                var port = uri.Port > 0 ? uri.Port : 5432;
+
+                connectionString = $"Host={uri.Host};Port={port};Database={database};Username={username};Password={password};SslMode=Require;Trust Server Certificate=true;";
+            }
+
+            builder.Services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseNpgsql(connectionString));
+
             var app = builder.Build();
+
             using (var scope = app.Services.CreateScope())
             {
-                var db = scope.ServiceProvider.GetRequiredService<StudentManagementSystem.Data.ApplicationDbContext>();
+                var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
                 db.Database.Migrate();
             }
+
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();
