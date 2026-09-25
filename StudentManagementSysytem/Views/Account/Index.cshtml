@@ -1,0 +1,120 @@
+﻿@model StudentManagementSystem.Models.User
+@{
+    ViewData["Title"] = "Login";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewData["Title"]</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+            body, html {
+                margin: 0;
+                height: 100%;
+            }
+
+            .row {
+                height: 100vh;
+            }
+
+            .left {
+                background: #0d0d1a;
+                color: white;
+                padding: 4rem;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+
+            .right {
+                background: #8b5cf6;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .form-control {
+                background: transparent;
+                border: none;
+                border-bottom: 1px solid #333;
+                border-radius: 0;
+                color: white;
+                padding: 10px 0;
+            }
+
+                .form-control:focus {
+                    background: transparent;
+                    box-shadow: none;
+                    border-bottom: 1px solid #8b5cf6;
+                    color: white;
+                }
+
+            .btn-purple {
+                background: #8b5cf6;
+                border: none;
+                padding: 12px;
+                border-radius: 8px;
+                width: 100%;
+                font-weight: 600;
+            }
+
+            .welcome-box {
+                background: rgba(255,255,255,0.1);
+                padding: 3rem;
+                border-radius: 20px;
+                text-align: center;
+                color: white;
+            }
+
+            a {
+                color: #8b5cf6;
+                text-decoration: none;
+            }
+    </style>
+</head>
+<body>
+    <div class="row g-0">
+        <!-- LEFT SIDE -->
+        <div class="col-md-6 left">
+            <div class="text-center mb-4">
+                <div class="rounded-circle mx-auto d-flex align-items-center justify-content-center mb-2" style="width:60px;height:60px;background:#8b5cf6">
+                    <i class="bi bi-mortarboard-fill" style="font-size:30px;color:#fff"></i>
+                </div>
+                <p class="fw-bold" style="color:#8b5cf6">Student Portal</p>
+            </div>
+
+            <h2 class="fw-bold mb-4">Enter your Login Details</h2>
+
+            @if (TempData["Error"] != null)
+            {
+                <div class="alert alert-danger">@TempData["Error"]</div>
+            }
+
+            <form asp-action="Index" method="post">
+                <div class="mb-4">
+                    <label asp-for="Email" class="form-label small">Username</label>
+                    <input asp-for="Email" class="form-control" placeholder="" />
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Password" class="form-label small">Password</label>
+                    <input asp-for="Password" type="password" class="form-control" />
+                </div>
+                <div class="mb-4"><a href="#" class="small">Forgot Password?</a></div>
+                <button class="btn btn-purple mb-3">Login</button>
+            </form>
+            <p class="text-center small">Don't have an account yet? <a asp-action="SignUp">Sign up</a></p>
+        </div>
+
+        <!-- RIGHT SIDE -->
+        <div class="col-md-6 right">
+            <div class="welcome-box">
+                <h2 class="fw-bold">Welcome to<br>student portal</h2>
+                <p class="small">Login to access your account</p>
+                <img src="https://cdn-icons-png.flaticon.com/512/1995/1995567.png" style="width:200px" />
+            </div>
+        </div>
+    </div>
+</body>
+</html>

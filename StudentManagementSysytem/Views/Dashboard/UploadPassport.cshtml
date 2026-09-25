@@ -1,0 +1,152 @@
+﻿@{
+    ViewData["Title"] = "Upload Passport";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    
+    /* FORCE FULL SCREEN - ADD THIS AT BOTTOM */
+.page-bg{
+  width: 100vw !important;
+  margin-left: calc(-50vw + 50%) !important;
+  max-width: 100vw !important;
+  min-height: 100vh !important;
+  box-sizing: border-box !important;
+}
+.header, .grid{
+  max-width: 100% !important;
+  width: 100% !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+   .page-bg{background:#f8f7ff; min-height:85vh; padding:28px;}
+   .header{background:linear-gradient(135deg, #7c5cff 0%, #a48cff 100%); border-radius:16px; padding:26px 30px; color:white; display:flex; align-items:center; gap:14px; margin-bottom:20px; max-width:950px; margin-left:auto; margin-right:auto;}
+   .header-icon{width:46px;height:46px;background:rgba(255,255,255,0.25); border-radius:12px; display:flex; align-items:center; justify-content:center;}
+   .header-icon svg{width:24px;height:24px; fill:white;}
+
+   .grid{display:grid; grid-template-columns:380px 1fr; gap:20px; max-width:950px; margin:0 auto;}
+   .card{background:white; border-radius:16px; border:1px solid #f0efff; box-shadow:0 4px 20px rgba(124,92,255,0.06); padding:22px;}
+   .card-title{font-size:14px; font-weight:800; color:#111; display:flex; align-items:center; gap:8px; margin-bottom:16px;}
+   .card-title svg{width:18px;height:18px; fill:#8b5cf6;}
+
+   .preview-box{width:180px;height:180px; background:#f8f7ff; border:2px dashed #e9e2ff; border-radius:50%; margin:0 auto; display:flex; align-items:center; justify-content:center; overflow:hidden; position:relative;}
+   .preview-box img{width:100%; height:100%; object-fit:cover; display:none;}
+   .preview-box.placeholder{font-size:48px; color:#d8d0ff;}
+
+   .drop-zone{border:2px dashed #d8d0ff; background:#fbfaff; border-radius:12px; padding:28px 20px; text-align:center; margin-top:20px; cursor:pointer; transition:0.2s;}
+   .drop-zone:hover{border-color:#8b5cf6; background:#f3f0ff;}
+   .drop-zone svg{width:32px;height:32px; fill:#8b5cf6; margin-bottom:10px;}
+   .drop-zone b{font-size:18px; color:#111; display:block;}
+   .drop-zone small{font-size:15px; color:#888; display:block; margin-top:4px;}
+
+   .info-list{font-size:15px; line-height:2.0; color:#555;}
+   .info-list li{margin-bottom:6px; display:flex; gap:8px; align-items:flex-start;}
+   .info-list li svg{width:16px;height:16px; fill:#10b981; flex-shrink:0; margin-top:2px;}
+
+   .btn-upload{width:100%; background:#8b5cf6; color:white; border:none; padding:13px; border-radius:10px; font-weight:700; font-size:13px; margin-top:18px; cursor:pointer;}
+   .btn-upload:hover{background:#7c3aed;}
+   .btn-outline{width:100%; background:white; border:1.5px solid #eaeaf0; color:#666; padding:12px; border-radius:10px; font-weight:600; font-size:12px; margin-top:8px; cursor:pointer;}
+
+    input[type=file]{display:none;}
+</style>
+
+<div class="page-bg">
+    <div class="header">
+        <div class="header-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.2 4.8-4.8S14.7 2.4 12 2.4 7.2 4.6 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8V22h19.2v-2.8c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
+        </div>
+        <div>
+            <h3 style="margin:0; font-weight:800; font-size:18px;">Upload Passport Photo</h3>
+            <p style="margin:2px 0 0; font-size:15px; opacity:0.9;">Official passport for your student ID and portal profile</p>
+        </div>
+    </div>
+
+    <div class="grid">
+        <!-- LEFT - PREVIEW -->
+        <div class="card" style="text-align:center;">
+            <div class="card-title" style="justify-content:center;">
+                <svg viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.2 4.8-4.8S14.7 2.4 12 2.4 7.2 4.6 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8V22h19.2v-2.8c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
+                Current Passport
+            </div>
+
+            <div class="preview-box" id="previewBox">
+                <img id="previewImg" src="" />
+                <div class="placeholder" id="placeholder">👤</div>
+            </div>
+
+            <p style="font-size:18px; color:#888; margin-top:20px;">CSC/2023/001 • Sulaimon Barakat Titilope</p>
+            <div style="background:#dcfce7; color:#16a34a; font-size:15px; font-weight:1200; padding:5px 12px; border-radius:20px; display:inline-block; margin-top:8px;">✓ Passport Uploaded</div>
+
+            <label for="fileInput" class="drop-zone">
+                <svg viewBox="0 0 24 24"><path d="M9 16h6v-6h4l-7-7-7 7h4v6zm-4 2h14v2H5v-2z"/></svg>
+                <b>Click to upload new photo</b>
+                <small>or drag and drop here</small>
+                <small style="color:#8b5cf6; margin-top:6px; font-weight:1000;">JPG, PNG max 2MB</small>
+            </label>
+            <input type="file" id="fileInput" accept="image/*" />
+
+            <button class="btn-upload">Upload Passport →</button>
+            <button class="btn-outline">Remove Photo</button>
+        </div>
+
+        <!-- RIGHT - GUIDELINES -->
+        <div>
+            <div class="card">
+                <div class="card-title">
+                    <svg viewBox="0 0 30 30"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 18c-4.4 0-8-3.6-8-8s3.6-8 8-8 8 3.6 8 8-3.6 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
+                    Passport Photo Guidelines
+                </div>
+                <ul class="info-list" style="list-style:none; padding:0;">
+                    <li><svg viewBox="0 0 30 30"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg> Recent photo (not more than 3 months old)</li>
+                    <li><svg viewBox="0 0 30 30"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg> White or light background only</li>
+                    <li><svg viewBox="0 0 30 30"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg> Face should be 70-80% of the photo</li>
+                    <li><svg viewBox="0 0 30 30"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg> No cap, glasses, or filter</li>
+                    <li><svg viewBox="0 0 30 30"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg> Clear, high quality - not blurry</li>
+                    <li><svg viewBox="0 0 30 30"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg> Size: 200x200px to 500x500px</li>
+                </ul>
+            </div>
+
+            <div class="card" style="background:#fef3c7; border-color:#fde68a;">
+                <div style="display:flex; gap:10px;">
+                    <div style="font-size:18px;">⚠️</div>
+                    <div>
+                        <div style="font-size:20px; font-weight:1200; color:#92400e;">Important Notice</div>
+                        <p style="font-size:15px; color:#92400e; margin-top:4px; line-height:2.0;">This passport will be used for your Student ID Card, Examination Card and Official Portal Profile. Make sure it meets all guidelines before uploading. You can only change it once per semester.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" style="background:#7c5cff; color:white; border:none;">
+                <div style="font-size:20px; font-weight:1200;">💡 Pro Tip</div>
+                <p style="font-size:15px; margin-top:6px; line-height:2.0; opacity:0.9;">Use a professional studio photo. Selfies are not allowed and will be rejected by admin. Your face should be clearly visible.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const fileInput = document.getElementById('fileInput');
+    const previewImg = document.getElementById('previewImg');
+    const placeholder = document.getElementById('placeholder');
+    const dropZone = document.querySelector('.drop-zone');
+
+    fileInput.addEventListener('change', function(e){
+        const file = e.target.files[0];
+        if(file){
+            const reader = new FileReader();
+            reader.onload = function(ev){
+                previewImg.src = ev.target.result;
+                previewImg.style.display = 'block';
+                placeholder.style.display = 'none';
+            }
+            reader.readAsDataURL(file);
+        }
+    });
+
+    dropZone.addEventListener('dragover', (e)=>{ e.preventDefault(); dropZone.style.borderColor='#8b5cf6'; });
+    dropZone.addEventListener('dragleave', ()=>{ dropZone.style.borderColor='#d8d0ff'; });
+    dropZone.addEventListener('drop', (e)=>{
+        e.preventDefault();
+        fileInput.files = e.dataTransfer.files;
+        fileInput.dispatchEvent(new Event('change'));
+    });
+</script>

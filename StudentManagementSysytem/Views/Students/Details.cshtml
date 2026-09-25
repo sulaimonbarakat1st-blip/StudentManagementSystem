@@ -1,0 +1,49 @@
+﻿@model StudentManagementSystem.Models.Student
+
+@{
+    ViewData["Title"] = "Student Details";
+}
+
+<div class="container mt-4">
+    <div class="card shadow-lg border-0">
+        <div class="card-header bg-primary text-white text-center">
+            <h3 class="mb-0">Student Profile</h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4 text-center">
+                    <img src="https://ui-avatars.com/api/?name=@Model.FirstName+@Model.LastName&background=0D8ABC&color=fff&size=128"
+                         class="rounded-circle mb-3" alt="Avatar" />
+                    <h4>@Model.FirstName @Model.LastName</h4>
+                    <span class="badge bg-success fs-6">@Model.Faculty</span>
+                </div>
+                <div class="col-md-8">
+                    <h5 class="text-primary border-bottom pb-2">Personal Information</h5>
+                    <dl class="row">
+                        <dt class="col-sm-4">Student ID</dt>
+                        <dd class="col-sm-8">STU-@Model.Id.ToString("D4")</dd>
+
+                        <dt class="col-sm-4">Full Name</dt>
+                        <dd class="col-sm-8">@Model.FirstName @Model.LastName</dd>
+
+                        <dt class="col-sm-4">MatricNo</dt>
+                        <dd class="col-sm-8">@Model.MatricNo @Model.LastName</dd>
+
+                        <dt class="col-sm-4">Email</dt>
+                        <dd class="col-sm-8">@Model.Email</dd>
+
+                        <dt class="col-sm-4">Date of Birth</dt>
+                        <dd class="col-sm-8">@Model.DateOfBirth.ToString("dd-MMM-yyyy")</dd>
+
+                        <dt class="col-sm-4">Class/Department</dt>
+                        <dd class="col-sm-8">@Model.Department</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer text-center">
+            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
+            <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,128 @@
+﻿@{
+    ViewData["Title"] = "Home";
+    Layout = null; // Remove navbar for landing page
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Portal</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+            body {
+                margin: 0;
+                font-family: 'Segoe UI', sans-serif;
+                overflow: hidden;
+            }
+
+            .container-fluid {
+                height: 100vh;
+            }
+
+            .login-section {
+                background-color: #0d0d1a;
+                color: white;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                padding: 4rem;
+            }
+
+            .welcome-section {
+                background: linear-gradient(135deg, #8b5cf6 0%, #a855f7 100%);
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                padding: 3rem;
+                color: white;
+            }
+
+            .btn-purple {
+                background-color: #8b5cf6;
+                border: none;
+            }
+
+                .btn-purple:hover {
+                    background-color: #7c3aed;
+                }
+
+            .form-control {
+                background: transparent;
+                border: none;
+                border-bottom: 1px solid #555;
+                border-radius: 0;
+                color: white;
+            }
+
+                .form-control:focus {
+                    background: transparent;
+                    box-shadow: none;
+                    border-bottom: 1px solid #8b5cf6;
+                    color: white;
+                }
+
+            .illustration-box {
+                background: rgba(255,255,255,0.1);
+                border-radius: 20px;
+                padding: 2.5rem;
+                text-align: center;
+                max-width: 500px;
+            }
+
+                .illustration-box img {
+                    width: 100%;
+                    max-width: 350px;
+                }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row h-100">
+
+            <!-- LEFT: LOGIN FORM -->
+            <div class="col-md-5 login-section">
+                <div>
+                    <h2 class="fw-bold mb-2">Login</h2>
+                    <p class="text-muted mb-4">Enter your account details</p>
+
+                    <form asp-controller="Students" asp-action="Index" method="get">
+                        <div class="mb-3">
+                            <label class="form-label text-muted">Username</label>
+                            <input type="text" class="form-control" name="Username" />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label text-muted">Password</label>
+                            <input type="password" class="form-control" name="Password" />
+                        </div>
+                        <a href="#" class="text-muted small">Forgot Password?</a>
+
+                        <button type="submit" class="btn btn-purple w-100 mt-4 py-2 rounded-3">Login</button>
+                    </form>
+
+                    <div class="text-center mt-5">
+                        <small class="text-muted">Don't have an account? </small>
+                        <a asp-controller="Students" asp-action="Create" class="btn btn-sm btn-outline-light">Sign up</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT: WELCOME WITH YOUR SVG -->
+            <div class="col-md-7 welcome-section">
+                <div class="illustration-box">
+                    <h1 class="fw-bold display-5">Welcome to <br> student portal</h1>
+                    <p class="mb-4">Login to access your account</p>
+
+                    <!-- THIS USES YOUR SVG -->
+                    <img src="~/Image/Student.svg" alt="Students" />
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>

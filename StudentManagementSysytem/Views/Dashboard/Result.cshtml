@@ -1,0 +1,221 @@
+﻿@{
+    ViewData["Title"] = "Academic Result";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    /* ALIGN BOXES BELOW WITH PURPLE HEADER - FULL SCREEN */
+.page-bg{
+  width: 100vw !important;
+  max-width: 100vw !important;
+  margin-left: calc(-50vw + 50%) !important;
+  margin-right: calc(-50vw + 50%) !important;
+  min-height: 100vh !important;
+  padding-left: 16px !important;
+  padding-right: 16px !important;
+  box-sizing: border-box !important;
+}
+.header{
+  width: 100% !important;
+  max-width: 100% !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  box-sizing: border-box !important;
+}
+/* force the centered container below to be full width */
+.page-bg > div:not(.header),
+.container,
+.content-wrapper,
+.result-container{
+  width: 100% !important;
+  max-width: 100% !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  box-sizing: border-box !important;
+}
+    /* FORCE FULL SCREEN - ADD THIS AT BOTTOM */
+.page-bg{
+  width: 100vw !important;
+  margin-left: calc(-50vw + 50%) !important;
+  max-width: 100vw !important;
+  min-height: 100vh !important;
+  box-sizing: border-box !important;
+}
+.header, .grid{
+  max-width: 100% !important;
+  width: 100% !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+    .page-bg{background:#f8f7ff; min-height:85vh; padding:28px;}
+    .header{background:linear-gradient(135deg, #7c5cff 0%, #a48cff 100%); border-radius:16px; padding:26px 30px; color:white; display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;}
+    .header-left{display:flex; gap:14px; align-items:center;}
+    .header-icon{width:46px;height:46px;background:rgba(255,255,255,0.25); border-radius:12px; display:flex; align-items:center; justify-content:center;}
+    .header-icon svg{width:24px;height:24px; fill:white;}
+    .gpa-grid{display:grid; grid-template-columns:repeat(4, 1fr); gap:14px; margin-bottom:20px; max-width:1150px; margin-left:auto; margin-right:auto;}
+    .gpa-card{background:white; border-radius:14px; padding:18px; border:1px solid #f0efff; box-shadow:0 4px 15px rgba(124,92,255,0.05); text-align:center;}
+    .gpa-label{font-size:10px; color:#888; font-weight:600; text-transform:uppercase;}
+    .gpa-value{font-size:22px; font-weight:900; color:#111; margin-top:4px;}
+    .gpa-sub{font-size:10px; color:#8b5cf6; font-weight:700; margin-top:2px;}
+
+    .main-grid{display:grid; grid-template-columns:1fr 300px; gap:20px; max-width:1150px; margin:0 auto;}
+    .card{background:white; border-radius:16px; border:1px solid #f0efff; box-shadow:0 4px 20px rgba(124,92,255,0.06); padding:22px;}
+    .card-title{font-size:14px; font-weight:800; color:#111; display:flex; align-items:center; justify-content:space-between; margin-bottom:16px;}
+    .card-title svg{width:18px;height:18px; fill:#8b5cf6;}
+
+    table{width:100%; border-collapse:collapse;}
+    th{font-size:10px; color:#888; text-align:left; padding:10px 8px; border-bottom:2px solid #f5f0ff; text-transform:uppercase;}
+    td{font-size:15px; padding:15px 10px; border-bottom:1px solid #f9f5ff; color:#333;}
+    tr:hover{background:#fbfaff;}
+    .grade{padding:6px 15px; border-radius:20px; font-size:15px; font-weight:1000; display:inline-block;}
+    .grade-A{background:#dcfce7; color:#16a34a;}
+    .grade-B{background:#dbeafe; color:#2563eb;}
+    .grade-C{background:#fef3c7; color:#d97706;}
+
+    .select-sem{background:#f3f0ff; border:1px solid #e9e2ff; border-radius:10px; padding:9px 15px; font-size:15px; color:#6b5b95; outline:none;}
+    .btn-print{width:100%; background:#111; color:white; border:none; padding:15px; border-radius:10px; font-weight:1000; font-size:15px; margin-top:14px; cursor:pointer;}
+</style>
+
+<div class="page-bg">
+    <div class="header">
+        <div class="header-left">
+            <div class="header-icon">
+                <svg viewBox="0 0 24 24"><path d="M12 2L1 7l11 5 9-4.9V17h2V7L12 2zM19 19H5v-2h14v2z"/></svg>
+            </div>
+            <div>
+                <h3 style="margin:0; font-weight:800; font-size:18px;">Academic Result</h3>
+                <p style="margin:2px 0 0; font-size:15px; opacity:1.0;">First Semester 2024/2025 • CSC/2023/001</p>
+            </div>
+        </div>
+        <select class="select-sem">
+            <option>First Semester 2024/2025</option>
+            <option>Second Semester 2023/2024</option>
+        </select>
+    </div>
+
+    <div class="gpa-grid">
+        <div class="gpa-card">
+            <div class="gpa-label">Current GPA</div>
+            <div class="gpa-value">4.21</div>
+            <div class="gpa-sub">▲ Top 10%</div>
+        </div>
+        <div class="gpa-card">
+            <div class="gpa-label">CGPA</div>
+            <div class="gpa-value" style="color:#8b5cf6;">4.05</div>
+            <div class="gpa-sub">Second Class Upper</div>
+        </div>
+        <div class="gpa-card">
+            <div class="gpa-label">Total Units</div>
+            <div class="gpa-value">18</div>
+            <div class="gpa-sub">6 Courses</div>
+        </div>
+        <div class="gpa-card">
+            <div class="gpa-label">Academic Standing</div>
+            <div class="gpa-value" style="font-size:14px; color:#10b981; margin-top:10px;">Excellent</div>
+            <div class="gpa-sub">No Carryover</div>
+        </div>
+    </div>
+
+    <div class="main-grid">
+        <div class="card">
+            <div class="card-title">
+                <span style="display:flex; align-items:center; gap:8px;">
+                    <svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+                    Semester Result Breakdown
+                </span>
+                <span style="font-size:10px; color:#888; font-weight:600;">6 Courses</span>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Code</th>
+                        <th>Course Title</th>
+                        <th>Unit</th>
+                        <th>Score</th>
+                        <th>Grade</th>
+                        <th>Point</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="font-weight:900;">CSC 101</td>
+                        <td>Introduction to Computing</td>
+                        <td>3</td>
+                        <td><b>78</b></td>
+                        <td><span class="grade grade-A">A</span></td>
+                        <td>15.0</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight:900;">CSC 102</td>
+                        <td>Introduction to Programming</td>
+                        <td>3</td>
+                        <td><b>72</b></td>
+                        <td><span class="grade grade-A">A</span></td>
+                        <td>15.0</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight:900;">MTH 101</td>
+                        <td>General Mathematics I</td>
+                        <td>3</td>
+                        <td><b>68</b></td>
+                        <td><span class="grade grade-B">B</span></td>
+                        <td>12.0</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight:900;">PHY 101</td>
+                        <td>General Physics I</td>
+                        <td>3</td>
+                        <td><b>65</b></td>
+                        <td><span class="grade grade-B">B</span></td>
+                        <td>12.0</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight:900;">GST 101</td>
+                        <td>Use of English</td>
+                        <td>2</td>
+                        <td><b>70</b></td>
+                        <td><span class="grade grade-A">A</span></td>
+                        <td>10.0</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight:900;">GST 107</td>
+                        <td>Philosophy & Logic</td>
+                        <td>2</td>
+                        <td><b>58</b></td>
+                        <td><span class="grade grade-C">C</span></td>
+                        <td>6.0</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div style="margin-top:18px; background:#f8f7ff; border-radius:12px; padding:12px 16px; display:flex; justify-content:space-between; font-size:15px;">
+                <span style="color:#666;">Remark: <b style="color:#111;">You are promoted to next level</b></span>
+                <span style="color:#8b5cf6; font-weight:1000;">GPA: 4.21 / 5.00</span>
+            </div>
+        </div>
+
+        <div>
+            <div class="card">
+                <div class="card-title">
+                    <svg viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 18c-4.4 0-8-3.6-8-8s3.6-8 8-8 8 3.6 8 8-3.6 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
+                    Grade Scale
+                </div>
+                <div style="font-size:15px; line-height:3;">
+                    <div style="display:flex; justify-content:space-between;"><span><b>A</b> 70-100</span><span>5.0 Excellent</span></div>
+                    <div style="display:flex; justify-content:space-between;"><span><b>B</b> 60-69</span><span>4.0 Very Good</span></div>
+                    <div style="display:flex; justify-content:space-between;"><span><b>C</b> 50-59</span><span>3.0 Good</span></div>
+                    <div style="display:flex; justify-content:space-between;"><span><b>D</b> 45-49</span><span>2.0 Pass</span></div>
+                    <div style="display:flex; justify-content:space-between;"><span><b>F</b> 0-44</span><span style="color:#ef4444;">0.0 Fail</span></div>
+                </div>
+            </div>
+
+            <button class="btn-print">🖨️ Print Result Slip</button>
+            <button style="width:100%; background:white; border:1.5px solid #eaeaf0; color:#666; padding:12px; border-radius:10px; font-weight:600; font-size:12px; margin-top:8px; cursor:pointer;">⬇️ Download PDF</button>
+
+            <div class="card" style="margin-top:14px; background:#7c5cff; color:white; border:none;">
+                <div style="font-size:15px; font-weight:800;">🎯 Keep it up!</div>
+                <p style="font-size:12px; margin-top:6px; line-height:1.6; opacity:0.9;">You're in Top 10% of your department. Maintain 4.0+ for First Class.</p>
+            </div>
+        </div>
+    </div>
+</div>

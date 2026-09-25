@@ -1,0 +1,63 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Register - Student Portal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+        *{margin:0; padding:0; box-sizing:border-box; font-family:Segoe UI, sans-serif;}
+        body{display:flex; min-height:100vh;}
+        .left{flex:1; background:#0f0f18; display:flex; justify-content:center; align-items:center; padding:40px;}
+        .box{width:380px;}
+        .logo{text-align:center; margin-bottom:30px;}
+        .circle{width:50px; height:50px; background:#8b5cf6; border-radius:50%; display:flex; align-items:center; justify-content:center; color:white; font-size:22px; margin:0 auto;}
+        .logo p{color:#8b5cf6; font-weight:800; font-size:13px; margin-top:6px;}
+        h2{color:white; font-size:22px; font-weight:800; margin-bottom:25px;}
+        label{color:#888; font-size:12px; display:block; margin-top:18px;}
+        .field{background:#1a1a28; border-radius:6px; display:flex; align-items:center; padding:12px 14px; margin-top:6px; border:1px solid #2a2a3a;}
+        .field svg{width:18px; height:18px; fill:#8b5cf6; margin-right:12px; min-width:18px;}
+        .field input{background:transparent; border:none; outline:none; color:white; width:100%; font-size:13px;}
+        .btn{width:100%; background:#8b5cf6; color:white; border:none; padding:12px; border-radius:6px; margin-top:28px; font-weight:700; cursor:pointer;}
+        .right{flex:1; background:#8b5cf6; display:flex; justify-content:center; align-items:center; padding:40px;}
+        .card{background:#a78bfa; border-radius:16px; padding:30px; text-align:center; width:300px; color:white;}
+    </style>
+</head>
+<body>
+    <div class="left">
+        <div class="box">
+            <div class="logo">
+                <div class="circle">🎓</div>
+                <p>Student Portal</p>
+            </div>
+            <h2>Create New Account</h2>
+            <form method="post" action="/Account/Register">
+                <label>Full Name</label>
+                <div class="field">
+                    <svg viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.2 4.8-4.8S14.7 2.4 12 2.4 7.2 4.6 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8V22h19.2v-2.8c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
+                    <input type="text" name="FullName" placeholder="Enter your name" required />
+                </div>
+                <label>Email</label>
+                <div class="field">
+                    <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                    <input type="email" name="Email" placeholder="Enter your email" required />
+                </div>
+                <label>Password</label>
+                <div class="field">
+                    <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.8-2.2-5-5-5S7 3.2 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.7 1.4-3.1 3.1-3.1s3.1 1.4 3.1 3.1v2z"/></svg>
+                    <input type="password" name="Password" placeholder="Create password" required />
+                </div>
+                <button class="btn" type="submit">Sign Up</button>
+            </form>
+        </div>
+    </div>
+    <div class="right">
+        <div class="card">
+            <h3 style="font-weight:800;">Join Our student portal</h3>
+            <p style="font-size:12px; margin-top:8px; opacity:0.9;">Register to unlock your account</p>
+            <div style="font-size:80px; margin-top:20px;">👩‍🎓🔭</div>
+        </div>
+    </div>
+</body>
+</html>

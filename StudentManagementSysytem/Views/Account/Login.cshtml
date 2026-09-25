@@ -1,0 +1,187 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login - Student Portal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: Segoe UI,sans-serif;
+            }
+
+            body {
+                display: flex;
+                min-height: 100vh;
+            }
+
+            .left {
+                flex: 1;
+                background: #ffffff;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 40px;
+            }
+
+            .box {
+                width: 380px;
+            }
+
+            .logo {
+                text-align: center;
+                margin-bottom: 24px;
+            }
+
+            .circle {
+                width: 54px;
+                height: 54px;
+                background: #8b5cf6;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+                font-size: 22px;
+                margin: 0 auto;
+            }
+
+            .logo p {
+                color: #8b5cf6;
+                font-weight: 800;
+                font-size: 13px;
+                margin-top: 8px;
+            }
+
+            h2 {
+                color: #111;
+                font-size: 22px;
+                font-weight: 800;
+            }
+
+            .sub {
+                color: #888;
+                font-size: 12px;
+                margin: 6px 0 24px;
+            }
+
+            label {
+                color: #333;
+                font-size: 12px;
+                font-weight: 600;
+                margin-top: 14px;
+                display: block;
+            }
+
+            .field {
+                background: #f5f5f7;
+                border: 1.5px solid #eaeaf0;
+                border-radius: 10px;
+                display: flex;
+                align-items: center;
+                padding: 12px 14px;
+                margin-top: 6px;
+            }
+
+                .field:focus-within {
+                    border-color: #8b5cf6;
+                    background: #f3f0ff;
+                }
+
+                .field svg {
+                    width: 20px;
+                    height: 20px;
+                    fill: #8b5cf6;
+                    margin-right: 10px;
+                }
+
+                .field input {
+                    background: transparent;
+                    border: none;
+                    outline: none;
+                    color: #111;
+                    width: 100%;
+                    font-size: 13px;
+                }
+
+            .row {
+                font-size: 11px;
+                color: #666;
+                display: flex;
+                justify-content: space-between;
+                margin-top: 12px;
+            }
+
+                .row a {
+                    color: #8b5cf6;
+                    text-decoration: none;
+                    font-weight: 700;
+                }
+
+            .btn {
+                width: 100%;
+                background: #8b5cf6;
+                color: white;
+                border: none;
+                padding: 12px;
+                border-radius: 10px;
+                margin-top: 18px;
+                font-weight: 700;
+                cursor: pointer;
+            }
+
+            .right {
+                flex: 1;
+                background: #7c5cff;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 40px;
+            }
+
+            .card {
+                background: rgba(255,255,255,0.25);
+                border-radius: 18px;
+                padding: 28px;
+                width: 300px;
+                text-align: center;
+                color: white;
+            }
+    </style>
+</head>
+<body>
+    <div class="left">
+        <div class="box">
+            <div class="logo"><div class="circle">🎓</div><p>Student Portal</p></div>
+            <h2>Welcome Back</h2>
+            <p class="sub">Login to your student account</p>
+            <form method="post" action="/Account/Login">
+                <label>Email Address</label>
+                <div class="field">
+                    <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" /></svg>
+                    <input type="email" name="Email" placeholder="Enter your email" required />
+                </div>
+                <label>Password</label>
+                <div class="field">
+                    <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.8-2.2-5-5-5S7 3.2 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.7 1.4-3.1 3.1-3.1s3.1 1.4 3.1 3.1v2z" /></svg>
+                    <input type="password" name="Password" placeholder="Enter password" required />
+                </div>
+                <div class="row"><span><input type="checkbox" /> Remember me</span><a href="#">Forgot Password?</a></div>
+                <button class="btn" type="submit">Login →</button>
+            </form>
+            <p style="text-align:center; font-size:15px; color:#888; margin-top:16px;">Don't have an account? <a href="/Account/Register" style="color:#8b5cf6; font-weight:700; text-decoration:none;">Create Account</a></p>
+        </div>
+    </div>
+    <div class="right">
+        <div class="card">
+            <h4 style="font-weight:1000;">Welcome back<br />to your portal</h4>
+            <p style="font-size:15px; margin-top:8px;">Login to continue your academic journey</p>
+            <div style="font-size:60px; margin-top:18px;">👨‍🎓 📚</div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,189 @@
+﻿@{
+    ViewData["Title"] = "Pay Fees";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+
+    /* FORCE FULL SCREEN - ADD THIS AT BOTTOM */
+.page-bg{
+  width: 100vw !important;
+  margin-left: calc(-50vw + 50%) !important;
+  max-width: 100vw !important;
+  min-height: 100vh !important;
+  box-sizing: border-box !important;
+}
+.header, .grid{
+  max-width: 100% !important;
+  width: 100% !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+/* FINAL ALIGNMENT FIX - TOP AND BOTTOM */
+.grid{
+  align-items: start !important;
+  width: 100% !important;
+  max-width: 100% !important;
+}
+.grid > div{
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 16px !important;
+  height: auto !important;
+}
+.grid > div > .card{
+  height: auto !important;
+  flex: none !important;
+  margin-bottom: 0 !important;
+}
+
+    .page-bg{background:#f8f7ff; min-height:100vh; padding:28px; width:100%; box-sizing:border-box;}
+    .header{background:linear-gradient(135deg, #7c5cff 0%, #a48cff 100%); border-radius:16px; padding:26px 30px; color:white; display:flex; justify-content:space-between; align-items:center; margin:0 auto 24px auto; width:100%; max-width:1150px; box-sizing:border-box;}
+    .header-left{display:flex; gap:14px; align-items:center;}
+    .header-icon{width:46px;height:46px;background:rgba(255,255,255,0.25); border-radius:12px; display:flex; align-items:center; justify-content:center;}
+    .header-icon svg{width:24px;height:24px; fill:white;}
+    .badge-paid{background:#10b981; color:white; padding:7px 14px; border-radius:20px; font-size:10px; font-weight:800;}
+    .badge-unpaid{background:#ef4444; color:white; padding:7px 14px; border-radius:20px; font-size:10px; font-weight:800;}
+
+    .grid{display:grid; grid-template-columns:1fr 460px; gap:20px; max-width:1150px; margin:0 auto; width:100%; align-items:start; box-sizing:boarder-box}
+    .card{background:white; border-radius:16px; border:1px solid #f0efff; box-shadow:0 4px 20px rgba(124,92,255,0.06); padding:22px; margin-bottom:16px;}
+    .card-title{font-size:14px; font-weight:800; color:#111; display:flex; align-items:center; gap:8px; margin-bottom:16px;}
+    .card-title svg{width:18px;height:18px; fill:#8b5cf6;}
+
+    .fee-row{display:flex; justify-content:space-between; align-items:center; padding:14px; border:1px solid #f1f0ff; border-radius:12px; margin-bottom:10px;}
+    .fee-left{display:flex; gap:12px; align-items:center;}
+    .fee-icon{width:42px;height:42px;background:#f3f0ff; border-radius:10px; display:flex; align-items:center; justify-content:center;}
+    .fee-icon svg{width:20px;height:20px; fill:#8b5cf6;}
+    .fee-name{font-size:18px; font-weight:900; color:#111;}
+    .fee-desc{font-size:15px; color:#555; font-weight:600 margin-top:3px;}
+    .fee-amount{font-size:13px; font-weight:800; color:#111;}
+
+    .summary-row{display:flex; justify-content:space-between; font-size:15px; padding:10px 0; border-bottom:1px dashed #eee;}
+    .summary-row.total{font-weight:800; font-size:14px; border:none; color:#111;}
+    .summary-row.total span:last-child{color:#8b5cf6;}
+
+    .btn-pay{width:100%; background:#8b5cf6; color:white; border:none; padding:14px; border-radius:10px; font-weight:700; font-size:13px; margin-top:16px; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px;}
+    .btn-pay:hover{background:#7c3aed;}
+    .pay-methods{display:flex; gap:8px; margin-top:12px; justify-content:center;}
+    .pay-methods img{height:18px; opacity:0.7;}
+
+    .history-item{display:flex; justify-content:space-between; align-items:center; padding:12px 0; border-bottom:1px solid #f5f5f5;}
+    .history-item:last-child{border:none;}
+    .dot{width:8px;height:8px; border-radius:50%; display:inline-block; margin-right:6px;}
+</style>
+
+<div class="page-bg">
+    <div class="header">
+        <div class="header-left">
+            <div class="header-icon">
+                <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V8h16v10zM6 10h2v2H6zm0 4h2v2H6zm4-4h2v2H10zm0 4h2v2H10zm4-4h2v2h-2zm0 4h2v2h-2z"/></svg>
+            </div>
+            <div>
+                <h3 style="margin:0; font-weight:800; font-size:18px;">Pay Fees</h3>
+                <p style="margin:2px 0 0; font-size:11px; opacity:0.9;">Secure payment for 2024/2025 Session</p>
+            </div>
+        </div>
+        <div class="badge-unpaid">⚠️ UNPAID BALANCE</div>
+    </div>
+
+    <div class="grid">
+        <!-- LEFT -->
+        <div>
+            <div class="card">
+                <div class="card-title">
+                    <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+                    Fee Breakdown - First Semester
+                </div>
+
+                <div class="fee-row">
+                    <div class="fee-left">
+                        <div class="fee-icon"><svg viewBox="0 0 24 24"><path d="M12 2L1 7l11 5 9-4.9V17h2V7L12 2z"/></svg></div>
+                        <div><div class="fee-name">Tuition Fee</div><div class="fee-desc">Core academic charges</div></div>
+                    </div>
+                    <div class="fee-amount">₦75,000</div>
+                </div>
+
+                <div class="fee-row">
+                    <div class="fee-left">
+                        <div class="fee-icon"><svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg></div>
+                        <div><div class="fee-name">Accommodation (Optional)</div><div class="fee-desc">Hostel fee</div></div>
+                    </div>
+                    <div class="fee-amount">₦25,000</div>
+                </div>
+
+                <div class="fee-row">
+                    <div class="fee-left">
+                        <div class="fee-icon"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 10h-2v-2h2v2zm-4 0h-2v-2h2v2zm-4 0H9v-2h2v2zm8-4h-2V7h2v2zm-4 0h-2V7h2v2zm-4 0H9V7h2v2z"/></svg></div>
+                        <div><div class="fee-name">Library & Lab Fee</div><div class="fee-desc">Facility maintenance</div></div>
+                    </div>
+                    <div class="fee-amount">₦10,000</div>
+                </div>
+
+                <div class="fee-row" style="background:#f3f0ff; border-color:#e9e2ff;">
+                    <div class="fee-left">
+                        <div class="fee-icon" style="background:white;"><svg viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 18c-4.4 0-8-3.6-8-8s3.6-8 8-8 8 3.6 8 8-3.6 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg></div>
+                        <div><div class="fee-name">Total Payable Now</div><div class="fee-desc">Due before 30th Oct 2025</div></div>
+                    </div>
+                    <div class="fee-amount" style="color:#8b5cf6; font-size:15px;">₦110,000</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">
+                    <svg viewBox="0 0 24 24"><path d="M13 3h-2v10h2V3zm4.83 2.17l-1.42 1.42C17.99 7.86 19 9.81 19 12c0 3.87-3.13 7-7 7s-7-3.13-7-7c0-2.19 1.01-4.14 2.58-5.42L6.17 5.17C4.23 6.82 3 9.26 3 12c0 4.97 4.03 9 9 9s9-4.03 9-9c0-2.74-1.23-5.18-3.17-6.83z"/></svg>
+                    Payment History
+                </div>
+                <div class="history-item">
+                    <div style="font-size:15px;"><span class="dot" style="background:#10b981;"></span>Acceptance Fee • 12 Aug 2024</div>
+                    <div style="font-size:15px; font-weight:700;">₦25,000 <span style="color:#10b981;">✓ Paid</span></div>
+                </div>
+                <div class="history-item">
+                    <div style="font-size:15px;"><span class="dot" style="background:#ef4444;"></span>First Semester • Pending</div>
+                    <div style="font-size:15px; font-weight:700; color:#ef4444;">₦110,000 Unpaid</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RIGHT - CHECKOUT -->
+        <div>
+            <div class="card">
+                <div class="card-title">
+                    <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-1 2H5c-.5 0-1 .5-1 1s.5 1 1 1h14c.5 0 1-.5 1-1s-.5-1-1-1zm0 12H5c-.5 0-1-.5-1-1s.5-1 1-1h14c.5 0 1 .5 1 1s-.5 1-1 1z"/></svg>
+                    Checkout Summary
+                </div>
+
+            <div style="background:#f8f7ff; border-radius:12px; padding:16px; margin-bottom:14px;">
+    <div style="display:flex; justify-content:space-between; align-items:center; gap:20px; white-space:nowrap;">
+        <span style="font-size:18px; color:#666; font-weight:600; flex-shrink:0;">Student:</span>
+        <span style="font-size:15px; font-weight:600; text-align:right; overflow:hidden; text-overflow:ellipsis;">Sulaimon Barakat Titilope - CSC/2023/001</span>
+    </div>
+    <div style="display:flex; justify-content:space-between; align-items:center; gap:20px; white-space:nowrap; margin-top:10px;">
+        <span style="font-size:18px; color:#666; font-weight:600; flex-shrink:0;">Session:</span>
+        <span style="font-size:15px; font-weight:900; text-align:right;">2024/2025 - First Semester</span>
+    </div>
+</div>
+
+                <div class="summary-row"><span>Subtotal</span><span>₦110,000</span></div>
+                <div class="summary-row"><span>Discount</span><span style="color:#10b981;">- ₦0</span></div>
+                <div class="summary-row total"><span>Total to Pay</span><span>₦110,000</span></div>
+
+                <button class="btn-pay">
+                    <svg viewBox="0 0 24 24" style="width:18px;height:18px; fill:white;"><path d="M12 1L3 5v6c0 5.5 3.8 10.7 9 12 5.2-1.3 9-6.5 9-12V5l-9-4z"/></svg>
+                    Pay Securely Now
+                </button>
+
+                <p style="font-size:13px; color:#888; text-align:center; margin-top:10px;">🔒 Secured by Paystack • 256-bit SSL Encrypted</p>
+                <div class="pay-methods">
+                    <span style="font-size:15px; background:#f5f5f5; padding:4px 8px; border-radius:4px;">VISA</span>
+                    <span style="font-size:15px; background:#f5f5f5; padding:4px 8px; border-radius:4px;">Mastercard</span>
+                    <span style="font-size:15px; background:#f5f5f5; padding:4px 8px; border-radius:4px;">Verve</span>
+                    <span style="font-size:15px; background:#f5f5f5; padding:4px 8px; border-radius:4px;">Bank Transfer</span>
+                </div>
+            </div>
+
+            <div class="card" style="background:#111; color:white; border:none;">
+                <div style="font-size:22px; font-weight:700;">⚠️ Important Notice</div>
+                <p style="font-size:18px; margin-top:6px; line-height:2.0; color:#aaa;">Payment must be completed before course registration. Keep your receipt safe for clearance.</p>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,116 @@
+﻿@{
+    ViewData["Title"] = "Student Portal";
+}
+
+<style>
+    body {
+        margin: 0 !important;
+        padding: 0 !important;
+        background-color: skyblue !important;
+    }
+    .portal-wrapper {
+        position: relative;
+        min-height: 100vh;
+        width: 100vw;
+        margin-left: calc(-50vw + 50%);
+        margin-top: -24px;
+        margin-bottom: -50px;
+        background: skyblue;
+        background: linear-gradient(135deg, #87CEEB 0%, #87CEFA 50%, #B0E0E6 100%);
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 60px 20px;
+    }
+    /* Dim UNIOSUN background watermark */
+    .portal-wrapper::before {
+        content: "OSUN STATE UNIVERSITY";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(-20deg);
+        font-size: 9vw;
+        font-weight: 900;
+        color: rgba(255, 255, 255, 0.35);
+        white-space: nowrap;
+        letter-spacing: 8px;
+        z-index: 0;
+        pointer-events: none;
+    }
+    .portal-content {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        max-width: 1100px;
+    }
+    .card {
+        border: none;
+        border-radius: 15px;
+        transition: 0.3s;
+        background: white;
+    }
+    .card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 12px 30px rgba(0,0,0,0.2) !important;
+    }
+</style>
+
+<div class="portal-wrapper">
+    <div class="portal-content">
+        <div class="text-center mb-4">
+            <h1 style="font-weight:900; color:#003366; text-shadow: 2px 2px 4px rgba(255,255,255,0.8);">OSUN STATE UNIVERSITY</h1>
+            <p style="color:#003366; font-weight:600;">Osogbo, Osun State - Student Management Portal</p>
+        </div>
+
+        <div class="alert shadow-sm" style="border-radius:12px; background:rgba(255,255,255,0.9); border:none;">
+            <h5 style="color:#003366;">Welcome <b>@ViewBag.UserName</b> to Student Portal</h5>
+            <small>Matric No: UNIOSUN/@(DateTime.Now.Year)/@(new Random().Next(1000,9999)) | Session: 2024/2025</small>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card shadow p-4 text-center h-100">
+                    <h6>📊 Check Result</h6>
+                    <p class="small text-muted">View your semester results</p>
+                    <a asp-action="Result" class="btn btn-primary w-100">Check Now</a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card shadow p-4 text-center h-100">
+                    <h6>💳 Pay School Fees</h6>
+                    <p class="small text-muted">Pay tuition and other fees</p>
+                    <a asp-action="PayFees" class="btn btn-success w-100">Pay Now</a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card shadow p-4 text-center h-100">
+                    <h6>🔒 Change Password</h6>
+                    <p class="small text-muted">Update your password</p>
+                    <a asp-action="ChangePassword" class="btn btn-warning w-100">Change</a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card shadow p-4 text-center h-100">
+                    <h6>🖼️ Upload Passport</h6>
+                    <p class="small text-muted">Upload your passport photo</p>
+                    <a asp-action="UploadPassport" class="btn btn-info w-100">Upload</a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card shadow p-4 text-center h-100">
+                    <h6>📝 Course Registration</h6>
+                    <p class="small text-muted">Register your courses</p>
+                    <a asp-action="CourseRegistration" class="btn btn-dark w-100">Register</a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card shadow p-4 text-center h-100">
+                    <h6>👤 My Profile</h6>
+                    <p class="small text-muted">View and edit profile</p>
+                    <a asp-action="Profile" class="btn btn-secondary w-100">View</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
