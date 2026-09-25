@@ -20,9 +20,9 @@ namespace StudentManagementSystem
                 var uri = new Uri(connectionString);
                 var userInfo = uri.UserInfo.Split(':', 2);
                 var username = userInfo[0];
-                var password = userInfo.Length > 1 ? userInfo[1] : "";
+                var password = userInfo.Length > 1? userInfo[1] : "";
                 var database = uri.AbsolutePath.Trim('/').Split('?')[0];
-                var port = uri.Port > 0 ? uri.Port : 5432;
+                var port = uri.Port > 0? uri.Port : 5432;
                 connectionString = $"Host={uri.Host};Port={port};Database={database};Username={username};Password={password};SslMode=Require;Trust Server Certificate=true;";
             }
 
@@ -33,11 +33,14 @@ namespace StudentManagementSystem
 
             var app = builder.Build();
 
-            // This MUST run without try/catch on Render to create tables
-            using (var scope = app.Services.CreateScope())
+            // ONLY auto-migrate on Render (Production). Locally, don't crash.
+            if (!app.Environment.IsDevelopment())
             {
-                var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-                db.Database.Migrate();
+                using (var scope = app.Services.CreateScope())
+                {
+                    var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+                    db.Database.Migrate();
+                }
             }
 
             if (!app.Environment.IsDevelopment())
