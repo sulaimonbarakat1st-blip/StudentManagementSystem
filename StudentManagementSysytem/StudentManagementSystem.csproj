@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <Folder Include="Models\NewFolder\" />
+    <Folder Include="NewFolder\" />
     <Folder Include="wwwroot\Image\" />
   </ItemGroup>
 

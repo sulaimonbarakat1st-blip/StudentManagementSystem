@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using StudentManagementSystem.Models;
+using StudentManagementSystem.Data;
 
 namespace StudentManagementSystem.Data
 {

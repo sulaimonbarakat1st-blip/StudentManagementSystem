@@ -1,62 +1,40 @@
 using Microsoft.EntityFrameworkCore;
 using StudentManagementSystem.Data;
+using ApplicationDbContext = StudentManagementSystem.Data.ApplicationDbContext;
 
 namespace StudentManagementSystem
 {
-    public class Program
+    public class 
+        
+        
+        Program
     {
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-
-            // Add services to the container.
             builder.Services.AddControllersWithViews();
             builder.Services.AddHttpContextAccessor();
             builder.Services.AddSession();
-
-            // ONLY ONE DATABASE - SQL Server
-            builder.Services.AddDbContext<ApplicationDbContext>(options =>
+            builder.Services.AddDbContext<StudentManagementSystem.Data.ApplicationDbContext>(options =>
                 options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
-
             var app = builder.Build();
-
             using (var scope = app.Services.CreateScope())
             {
-                var db = scope.ServiceProvider.GetRequiredService<StudentManagementSysytem.Data.ApplicationDbContext>();
+                var db = scope.ServiceProvider.GetRequiredService<StudentManagementSystem.Data.ApplicationDbContext>();
                 db.Database.Migrate();
             }
-
-            // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
-
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
-            if (!app.Environment.IsDevelopment())
-            {
-                app.UseExceptionHandler("/Home/Error");
-                app.UseHsts();
-            }
-
-            app.UseHttpsRedirection();
-            app.UseStaticFiles();
-
             app.UseRouting();
-
-            app.UseSession(); // <-- ADD THIS HERE - MUST be after UseRouting and before MapControllerRoute
-
+            app.UseSession();
             app.UseAuthorization();
-
-            app.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
-
+            app.MapControllerRoute(name: "default", pattern: "{controller=Home}/{action=Index}/{id?}");
             app.Run();
-           
         }
     }
 }
