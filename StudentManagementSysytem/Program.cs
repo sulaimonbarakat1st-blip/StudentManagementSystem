@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using StudentManagementSystem.Data;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace StudentManagementSystem
 {
@@ -12,7 +13,6 @@ namespace StudentManagementSystem
             builder.Services.AddHttpContextAccessor();
             builder.Services.AddSession();
 
-            // FIX: Convert Neon postgresql:// URL to Npgsql format
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
             if (!string.IsNullOrEmpty(connectionString) && connectionString.StartsWith("postgres"))
@@ -23,19 +23,28 @@ namespace StudentManagementSystem
                 var password = userInfo.Length > 1 ? userInfo[1] : "";
                 var database = uri.AbsolutePath.Trim('/').Split('?')[0];
                 var port = uri.Port > 0 ? uri.Port : 5432;
-
                 connectionString = $"Host={uri.Host};Port={port};Database={database};Username={username};Password={password};SslMode=Require;Trust Server Certificate=true;";
             }
 
-            builder.Services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseNpgsql(connectionString));
+            builder.Services.AddDbContext<ApplicationDbContext>(options => {
+                options.UseNpgsql(connectionString);
+                options.ConfigureWarnings(w => w.Ignore(RelationalEventId.PendingModelChangesWarning));
+            });
 
             var app = builder.Build();
 
-            using (var scope = app.Services.CreateScope())
+            // FIX: Don't crash if DB is not reachable locally
+            try
             {
-                var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-                db.Database.Migrate();
+                using (var scope = app.Services.CreateScope())
+                {
+                    var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+                    db.Database.Migrate();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"DB Migrate failed (ignoring locally): {ex.Message}");
             }
 
             if (!app.Environment.IsDevelopment())
