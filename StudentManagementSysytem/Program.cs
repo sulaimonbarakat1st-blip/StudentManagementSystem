@@ -33,18 +33,11 @@ namespace StudentManagementSystem
 
             var app = builder.Build();
 
-            // FIX: Don't crash if DB is not reachable locally
-            try
+            // This MUST run without try/catch on Render to create tables
+            using (var scope = app.Services.CreateScope())
             {
-                using (var scope = app.Services.CreateScope())
-                {
-                    var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-                    db.Database.Migrate();
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"DB Migrate failed (ignoring locally): {ex.Message}");
+                var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+                db.Database.Migrate();
             }
 
             if (!app.Environment.IsDevelopment())
