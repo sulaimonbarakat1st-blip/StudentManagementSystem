@@ -33,6 +33,7 @@ namespace StudentManagementSystem.Controllers
                     ModelState.AddModelError("", "Email already exists");
                     return View(model);
                 }
+
                 var user = new User
                 {
                     FullName = model.FullName,
