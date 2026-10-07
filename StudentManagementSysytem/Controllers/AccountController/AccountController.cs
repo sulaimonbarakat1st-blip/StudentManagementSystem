@@ -38,7 +38,7 @@ namespace StudentManagementSystem.Controllers
                 {
                     FullName = model.FullName,
                     Email = model.Email,
-                    Password = model.Password
+                    Password = BCrypt.Net.BCrypt.HashPassword(model.Password),
                 };
 
                 _context.Users.Add(user);
@@ -68,8 +68,7 @@ namespace StudentManagementSystem.Controllers
                     ModelState.AddModelError("", "Invalid email or password");
                     return View(model);
                 }
-
-                if (user.Password != model.Password)
+                if (BCrypt.Net.BCrypt.Verify(model.Password, user.Password))
                 {
                     ModelState.AddModelError("", "Invalid email or password");
                     return View(model);
