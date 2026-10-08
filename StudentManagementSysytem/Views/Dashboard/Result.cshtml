@@ -83,7 +83,7 @@
             </div>
             <div>
                 <h3 style="margin:0; font-weight:800; font-size:18px;">Academic Result</h3>
-                <p style="margin:2px 0 0; font-size:15px; opacity:1.0;">First Semester 2024/2025 • CSC/2023/001</p>
+                <p style="margin:2px 0 0; font-size:15px; opacity:1.0;">First Semester 2024/2025 • @ViewBag.MatricNo - @ViewBag.FullName</p>
             </div>
         </div>
         <select class="select-sem">
@@ -95,12 +95,12 @@
     <div class="gpa-grid">
         <div class="gpa-card">
             <div class="gpa-label">Current GPA</div>
-            <div class="gpa-value">4.21</div>
+            <div class="gpa-value">@ViewBag.GPA</div>
             <div class="gpa-sub">▲ Top 10%</div>
         </div>
         <div class="gpa-card">
             <div class="gpa-label">CGPA</div>
-            <div class="gpa-value" style="color:#8b5cf6;">4.05</div>
+            <div class="gpa-value" style="color:#8b5cf6;">@ViewBag.CGPA</div>
             <div class="gpa-sub">Second Class Upper</div>
         </div>
         <div class="gpa-card">
@@ -141,7 +141,7 @@
                         <td style="font-weight:900;">CSC 101</td>
                         <td>Introduction to Computing</td>
                         <td>3</td>
-                        <td><b>78</b></td>
+                        <td><b>@ViewBag.Score1</b></td>
                         <td><span class="grade grade-A">A</span></td>
                         <td>15.0</td>
                     </tr>
@@ -149,7 +149,7 @@
                         <td style="font-weight:900;">CSC 102</td>
                         <td>Introduction to Programming</td>
                         <td>3</td>
-                        <td><b>72</b></td>
+                        <td><b>@ViewBag.Score2</b></td>
                         <td><span class="grade grade-A">A</span></td>
                         <td>15.0</td>
                     </tr>
@@ -157,7 +157,7 @@
                         <td style="font-weight:900;">MTH 101</td>
                         <td>General Mathematics I</td>
                         <td>3</td>
-                        <td><b>68</b></td>
+                        <td><b>@ViewBag.Score3</b></td>
                         <td><span class="grade grade-B">B</span></td>
                         <td>12.0</td>
                     </tr>
@@ -165,7 +165,7 @@
                         <td style="font-weight:900;">PHY 101</td>
                         <td>General Physics I</td>
                         <td>3</td>
-                        <td><b>65</b></td>
+                        <td><b>@ViewBag.Score4</b></td>
                         <td><span class="grade grade-B">B</span></td>
                         <td>12.0</td>
                     </tr>
@@ -173,7 +173,7 @@
                         <td style="font-weight:900;">GST 101</td>
                         <td>Use of English</td>
                         <td>2</td>
-                        <td><b>70</b></td>
+                        <td><b>@ViewBag.Score5</b></td>
                         <td><span class="grade grade-A">A</span></td>
                         <td>10.0</td>
                     </tr>
@@ -181,7 +181,7 @@
                         <td style="font-weight:900;">GST 107</td>
                         <td>Philosophy & Logic</td>
                         <td>2</td>
-                        <td><b>58</b></td>
+                        <td><b>@ViewBag.Score6</b></td>
                         <td><span class="grade grade-C">C</span></td>
                         <td>6.0</td>
                     </tr>

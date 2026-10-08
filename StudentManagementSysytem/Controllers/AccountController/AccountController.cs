@@ -22,6 +22,7 @@ namespace StudentManagementSystem.Controllers
             return View();
         }
 
+
         [HttpPost]
         public IActionResult Register(RegisterViewModel model)
         {
@@ -43,11 +44,37 @@ namespace StudentManagementSystem.Controllers
 
                 _context.Users.Add(user);
                 _context.SaveChanges();
+
+                // Now create his own Student row
+                var count = _context.Students.Count() + 1;
+
+                var names = model.FullName.Trim().Split(' ');
+                var firstName = names[0];
+                var lastName = names.Length > 1 ? names[names.Length - 1] : firstName;
+
+                var student = new Student
+                {
+                    UserId = user.Id.ToString(),
+                    MatricNo = $"CSC/2025/{count:D4}",
+                    FirstName = firstName,
+                    LastName = lastName,
+                    Email = model.Email,
+                    Department = "Computer Science",
+                    Faculty = "Science",
+                    DateOfBirth = DateTime.UtcNow
+                };
+
+                _context.Students.Add(student);
+                _context.SaveChanges();
                 return RedirectToAction("Login");
+            }
+            // Add this to see why it stays
+            foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
+            {
+                Console.WriteLine(error.ErrorMessage);
             }
             return View(model);
         }
-
         public IActionResult Login()
         {
             if (HttpContext.Session.GetString("UserEmail") != null)
@@ -62,13 +89,13 @@ namespace StudentManagementSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = _context.Users.FirstOrDefault(u => u.Email == model.Email);
+                var user = _context.Users.FirstOrDefault(u => u.Email.ToLower() == model.Email.ToLower().Trim());
                 if (user == null)
                 {
                     ModelState.AddModelError("", "Invalid email or password");
                     return View(model);
                 }
-                if (BCrypt.Net.BCrypt.Verify(model.Password, user.Password))
+                if (!BCrypt.Net.BCrypt.Verify(model.Password, user.Password))
                 {
                     ModelState.AddModelError("", "Invalid email or password");
                     return View(model);
@@ -76,7 +103,7 @@ namespace StudentManagementSystem.Controllers
 
                 HttpContext.Session.SetString("UserEmail", user.Email);
                 HttpContext.Session.SetString("UserName", user.FullName);
-
+                HttpContext.Session.SetString("UserId", user.Id.ToString());
                 return RedirectToAction("Index", "Dashboard");
             }
             return View(model);
@@ -85,7 +112,7 @@ namespace StudentManagementSystem.Controllers
         public IActionResult Logout()
         {
             HttpContext.Session.Clear();
-            return RedirectToAction("Login");
+            return RedirectToAction("Register", "Account");
         }
     }
 }

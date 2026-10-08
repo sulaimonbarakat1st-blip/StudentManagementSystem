@@ -5,9 +5,11 @@
         
      public int Id { get; set; }
 
-     public int MatricNo { get; set; }
+     public required string UserId { get; set; }
 
-     public required string FirstName { get; set; }
+     public string  MatricNo { get; set; }
+
+     public required  string FirstName { get; set; }
 
      public required string LastName { get; set; }
 
@@ -20,5 +22,7 @@
      public required string Faculty { get; set; }
   
     }
+
 }
+
 
