@@ -15,7 +15,7 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true;
     options.Cookie.SameSite = SameSiteMode.Lax;
     // This is the fix: Allow HTTP on localhost, Always on Render
-    options.Cookie.SecurePolicy = app.Environment.IsDevelopment()
+    options.Cookie.SecurePolicy = builder.Environment.IsDevelopment()
         ? CookieSecurePolicy.None
         : CookieSecurePolicy.Always;
 });
